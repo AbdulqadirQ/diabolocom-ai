@@ -13,6 +13,10 @@ async def transcribe_file(audio_file):
 
     transcription = ""
     for segment in segments:
-        transcription += "[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text)
+        transcription += f"[{round(segment.start,2)} -> {round(segment.end,2)}] {segment.text}"
 
-    return transcription
+    return {
+        "transcription": transcription,
+        "language": info.language, "duration": info.duration,
+        "latency": info.vad_options.min_silence_duration_ms
+        }
