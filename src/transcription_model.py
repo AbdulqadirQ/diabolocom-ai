@@ -1,17 +1,13 @@
-from faster_whisper import WhisperModel
+from faster_whisper import WhisperModel, BatchedInferencePipeline
 
-model_size = "large-v3"
+model_size = "tiny"
 
-# Run on GPU with FP16 //TODO CHANGE TO device="cpu", compute_type="int8"
-model = WhisperModel(model_size, device="cuda", compute_type="float16")
-
-# or run on GPU with INT8
-# model = WhisperModel(model_size, device="cuda", compute_type="int8_float16")
-# or run on CPU with INT8
-# model = WhisperModel(model_size, device="cpu", compute_type="int8")
+# cuda vs cpu. see https://github.com/SYSTRAN/faster-whisper
+model = WhisperModel(model_size, device="cpu", compute_type="int8")
+batched_model = BatchedInferencePipeline(model=model)
 
 async def transcribe_file(audio_file):
-    segments, info = model.transcribe(audio_file, beam_size=5)
+    segments, info = batched_model.transcribe(audio_file, batch_size=8)
 
     print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
 
