@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transcription-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transcription-pod
+  template:
+    metadata:
+      labels:
+        app: transcription-pod
+    spec:
+      containers:
+        - name: diabolocom-ai
+          image: ghcr.io/abdulqadirq/diabolocom-ai:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: MONGO_INITDB_HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: mongodb-configmap
+                  key: mongodb-hostname
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: mongo-root-username
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: mongo-root-password
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: transcription-service
+spec:
+  selector:
+    app: transcription-pod
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      nodePort: 30001
