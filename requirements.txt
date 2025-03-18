@@ -1,0 +1,7 @@
+ctranslate2==4.4.0
+fastapi[standard]==0.115.11
+faster-whisper==1.1.1
+nvidia-cublas-cu12==12.8.4.1
+nvidia-cudnn-cu11==8.9.6.50
+nvidia-cudnn-cu12==9.8.0.87
+python-multipart==0.0.20
