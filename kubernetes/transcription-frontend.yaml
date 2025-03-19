@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transcription-frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transcription-frontend-pod
+  template:
+    metadata:
+      labels:
+        app: transcription-frontend-pod
+    spec:
+      containers:
+        - name: diabolocom-frontend
+          image: ghcr.io/abdulqadirq/diabolocom-frontend:latest
+          ports:
+            - containerPort: 8501
+          env:
+            - name: API_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-configmap
+                  key: transcription-api-hostname
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: transcription-frontend-service
+spec:
+  selector:
+    app: transcription-frontend-pod
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8501
+      targetPort: 8501
+      nodePort: 30002

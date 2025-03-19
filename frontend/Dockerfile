@@ -1,0 +1,14 @@
+FROM python:3.12-slim
+WORKDIR /usr/local/app
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r ./requirements.txt
+
+COPY src ./src
+COPY .streamlit/ ./.streamlit/
+EXPOSE 8501
+
+RUN useradd app
+USER app
+
+CMD ["streamlit", "run", "src/frontend.py"]

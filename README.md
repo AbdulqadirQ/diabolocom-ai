@@ -13,6 +13,8 @@
     ```
     Here the URI `192.168.0.80:30001` can be entered into a browser
 
+NOTE: unfortunately the front-end does not connect with the API within docker containers, so isn't operational just yet. However please see 'Running Transcription Frontend natively' below to understand how it should work.
+
 ## Teardown
 1. To destroy the deployment, run the following from the root of the repository: `source deployment/teardown.sh`
 
@@ -36,3 +38,9 @@ The following steps can be taken from the root of the repository to run the app 
     export LD_LIBRARY_PATH=`python3 -c 'import os; import nvidia.cublas.lib; import nvidia.cudnn.lib; print(os.path.dirname(nvidia.cublas.lib.__file__) + ":" + os.path.dirname(nvidia.cudnn.lib.__file__))'`
     ```
 4. `fastapi dev main.py`
+
+## Running Transcription Frontend natively
+The following steps can be taken from the /frontend directory to run the frontend natively:
+1. `pip install -r requirements.txt`
+2. `export API_BASE_URL=<MY_API_BASE_URL>`
+3. `streamlit run src/frontend.py`

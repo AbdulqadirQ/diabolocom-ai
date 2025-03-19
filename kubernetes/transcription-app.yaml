@@ -21,7 +21,7 @@ spec:
             - name: MONGO_INITDB_HOSTNAME
               valueFrom:
                 configMapKeyRef:
-                  name: mongodb-configmap
+                  name: app-configmap
                   key: mongodb-hostname
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:
