@@ -1,3 +1,4 @@
+# EXPLANATION: configmap to hold service names for the various containers
 apiVersion: v1
 kind: ConfigMap
 metadata:

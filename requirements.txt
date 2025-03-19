@@ -1,3 +1,4 @@
+# EXPLANATION: possibly better to define minimum versions and not fixed versions
 ctranslate2==4.4.0
 fastapi[standard]==0.115.11
 faster-whisper==1.1.1

@@ -1,3 +1,5 @@
+# EXPLANATION: Main deployment and service for the model
+#              Requires being exposed outside of the cluster to allow user interaction
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,10 +16,12 @@ spec:
     spec:
       containers:
         - name: diabolocom-ai
+          # EXPLANATION: this is an image I've pushed-up to my Github Packages and is available publicly
           image: ghcr.io/abdulqadirq/diabolocom-ai:latest
           ports:
             - containerPort: 8000
           env:
+            # EXPLANATION: a configmap is used to find the mongodb service for the statistics
             - name: MONGO_INITDB_HOSTNAME
               valueFrom:
                 configMapKeyRef:
@@ -47,4 +51,5 @@ spec:
     - protocol: TCP
       port: 8000
       targetPort: 8000
+      # EXPLANATION: this port may be better set within a config file. It may likely conflict with other services on a cluster
       nodePort: 30001

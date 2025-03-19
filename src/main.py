@@ -5,6 +5,9 @@ from src.transcription_model import transcribe_file
 
 app = FastAPI()
 
+# EXPLANATION: each endpoint refers to the releant module and function
+#              The responses are not wrapped in a data structure, rather given back to the user
+#              in a format that'd be most useful to them
 @app.get("/statistics/language_of_calls")
 def get_language_of_calls():
     return language_of_calls()
@@ -24,6 +27,6 @@ def get_median_call_duration():
 @app.post("/upload_call/")
 async def create_upload_file(file: UploadFile):
     model_result = await transcribe_file(file.file)
-    print(model_result)
+    # EXPLANATION: each call's data is recorded within the database
     add_call(model_result["language"], model_result["duration"], model_result["latency"])
     return {"transcription": model_result["transcription"]}

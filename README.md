@@ -12,6 +12,7 @@
     transcription-service   LoadBalancer   10.98.58.17   192.168.0.80     8000:30001/TCP   12s
     ```
     Here the URI `192.168.0.80:30001` can be entered into a browser
+3. The API base URL can now be used with the `/docs` endpoint to access the easy-to-use fastapi documentation for trying out each of the endpoints
 
 NOTE: unfortunately the front-end does not connect with the API within docker containers, so isn't operational just yet. However please see 'Running Transcription Frontend natively' below to understand how it should work.
 

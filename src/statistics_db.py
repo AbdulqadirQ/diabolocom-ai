@@ -2,20 +2,26 @@ import os
 import pymongo
 from collections import Counter
 
+# Explanation: required envs taken from shell and allow easy compatibility with docker/kubernetes
 hostname = os.environ["MONGO_INITDB_HOSTNAME"]
 username = os.environ["MONGO_INITDB_ROOT_USERNAME"]
 password = os.environ["MONGO_INITDB_ROOT_PASSWORD"]
 
+# Explanation: very generic mongodb setup
+#              MongoDB used for being a nosql database, easy to use and can persist statistics
 mongo_client = pymongo.MongoClient(hostname, username=username, password=password)
 
 db = mongo_client["statistics"]
 statistics_collection = db["statistics_collection"]
 
+# Explanation: called upon each call transcribed, and all data is stored. After which queries can be run
+#              Therefore all call data is stored to become available for any type of query in future
 def add_call(language, duration, latency):
     call = {"language": language, "latency": latency, "audio_length": duration}
     print(call)
     statistics_collection.insert_one(call)
 
+# Explanation: as much logic done here to avoid logic within REST endpoints module
 def language_of_calls():
     list_of_languages = []
     for call in statistics_collection.find():
