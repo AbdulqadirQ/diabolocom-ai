@@ -1,6 +1,7 @@
 # EXPLANATION: this deployment/service is very similar to the transcription-app
 #              unfortunately once inside a container this frontend has trouble connecting with the API
 #              and is still a work-in-progress to fix...
+#              Resource limits should be added after finding the correct limits
 apiVersion: apps/v1
 kind: Deployment
 metadata:

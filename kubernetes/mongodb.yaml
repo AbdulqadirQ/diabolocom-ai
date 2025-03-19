@@ -1,6 +1,7 @@
 # EXPLANATION: fairly generic mongodb deployment and service
 #              would be better to parameterise the port number, possibly within a config file
 #              the service doesn't require being exposed externally from the cluster
+#              Resource limits should be added after finding the correct limits
 apiVersion: apps/v1
 kind: Deployment
 metadata:

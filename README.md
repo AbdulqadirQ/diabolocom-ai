@@ -45,3 +45,14 @@ The following steps can be taken from the /frontend directory to run the fronten
 1. `pip install -r requirements.txt`
 2. `export API_BASE_URL=<MY_API_BASE_URL>`
 3. `streamlit run src/frontend.py`
+
+# Ideal Improvements
+1. Fix front-end of application
+2. Pytest for testing api endpoints
+3. Add additional logging
+4. Use of strong typing within python code
+5. Run scripts in dry-run mode by default, and add flag for --no-dry-run
+6. Change the API docker build into a multi-stage build due to the large size
+7. Use DNS for a more friendly service URL
+8. Add REST API validation & error logging
+9. Experiment and set resource limits for containers

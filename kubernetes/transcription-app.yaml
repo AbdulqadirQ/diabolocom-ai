@@ -1,5 +1,6 @@
 # EXPLANATION: Main deployment and service for the model
 #              Requires being exposed outside of the cluster to allow user interaction
+#              Resource limits should be added after finding the correct limits
 apiVersion: apps/v1
 kind: Deployment
 metadata:
